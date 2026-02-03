@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+        body.light {
+        background-color: white;
+        color: black;
+        }
+
+        body.dark {
+        background-color: black;
+        color: white;
+        }
+
+        button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        cursor: pointer;
+        }
+    </style>
+<body class="">
+    <h1>Hello</h1>
+    <h1>Theme Toggle Example</h1>
+    <button id="toggleTheme">Toggle Theme</button>
+</body>
+<script>
+    // localStorage.setItem('username', 'Vanna');
+    // const name = localStorage.getItem('username');
+    // console.log(name);  
+
+    // localStorage.removeItem('username');
+    // const nameAfterRemove = localStorage.getItem('username');
+    // console.log(nameAfterRemove);
+
+    
+    // localStorage.setItem('username', 'Vanna');
+    // localStorage.setItem('role', 'admin');
+
+    // const username = localStorage.getItem('username');
+    // const role = localStorage.getItem('role');
+    // console.log(username, role);
+    
+
+    // localStorage.removeItem('role');
+    // console.log(localStorage.getItem('role'));
+
+    // // localStorage.clear();
+    // localStorage.setItem('theme', 'dark');
+    // console.log(localStorage.getItem('theme'));
+
+
+    // const cartItems = [
+    //     { id: 1, name: 'Shoes', price: 50, qty: 2 },
+    //     { id: 2, name: 'T-shirt', price: 20, qty: 1 }
+    // ];
+    // localStorage.setItem('cart', JSON.stringify(cartItems));
+    // const cart = localStorage.getItem('cart');
+    // console.log(cart);
+    
+    // const person = {
+    //     name: 'sreyne',
+    //     role: 'user',
+    //     age: 22
+    // }
+    // localStorage.setItem('person',JSON.stringify(person));
+    // const p = localStorage.getItem('person');
+    // console.log(p);
+
+    // localStorage.setItem('student', JSON.parse(cartItems));
+    // const s = localStorage.getItem('student');
+    // console.log(s);
+
+
+    // let user = {
+    //     name: 'Vanna',
+    //     role: 'admin',
+    //     age: 25
+    // };
+
+    // localStorage.setItem('user', JSON.stringify(user));
+
+    // const cartItems = [
+    //     { id: 1, name: "Vanna", course: "Math" },
+    //     { id: 2, name: "Sreyne", course: "Science" }
+    // ];
+
+    // // Step 2: Save it in localStorage (must stringify)
+    // localStorage.setItem('studentArr', JSON.stringify(cartItems));
+
+    // // Step 3: Retrieve it from localStorage
+    // const s = localStorage.getItem('studentArr'); // This is still a string
+    // console.log("Raw data from localStorage:", s);
+
+    // const parsedS = JSON.parse(s); // Now it's an array of objects
+
+    // console.log(parsedS[1].course);
+    // console.log("log", cartItems[1]['course']);
+    
+
+    ///////////////// Load saved theme or default to 'light'
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.body.className = savedTheme;
+
+    const toggleButton = document.getElementById('toggleTheme');
+    toggleButton.addEventListener('click',()=>{
+
+        currentTheme = document.body.className;
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.body.className = newTheme;
+
+        localStorage.setItem('theme', newTheme);
+    })
+
+    
+</script>
+</html>

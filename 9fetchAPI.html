@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Fetch API Example</h2>
+    <h2>USER LIST</h2>
+    <button onclick="loadUsers()">Load Users</button>
+
+    <ul id="userList"></ul>
+</body>
+<script>
+
+    // fetch api syntax
+
+    // fetch(url)
+    //     .then(Response => Response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //         // handle data
+    //     }).catch(error => {
+    //         // handle error
+    //     });
+
+    function loadUsers() {
+        const url= 'https://jsonplaceholder.typicode.com/users';   
+        fetch(url)
+            .then(Response => Response.json())
+            .then(users => {
+                console.log("User",users);
+                users.forEach(user => {
+                    console.log(user.name);
+                    const li = document.createElement('li');
+                    li.textContent = user.name + " (" + user.email + ")";
+                    document.getElementById('userList').appendChild(li);
+                });
+            }).catch(error => {
+                console.error("Error:", error);
+            });
+    }
+</script>
+</html>
+
