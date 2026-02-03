@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>POST with await</title>
 </head>
 <body>
-    
+    <button onclick="createUser()">Create User</button>
+
+<script>
+    async function createUser() {
+        const url = 'https://jsonplaceholder.typicode.com/users';
+
+        try {
+            const res = await fetch(url, {
+                method: 'POST', // ✅ must be a string
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: 'Vanna Sreyne'
+                })
+            });
+
+            const data = await res.json(); // ✅ use same variable
+            console.log(data);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+</script>
 </body>
 </html>
