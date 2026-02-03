@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Async/Await Example</h1>
+    <h2>USER LIST</h2>
+    <button onclick="loadingUser()">Load Users</button>
+    <p id="userlist">
+
+    </p>
+</body>
+<script>
+    async function loadingUser() {
+        try{
+            const url = 'https://jsonplaceholder.typicode.com/users';
+            const res = await fetch(url);
+            const users = await res.json();
+            console.log("User", users);
+            users.forEach(user => {
+                console.log(user.name);
+                const p = document.createElement('p');
+                p.textContent = user.name + " (" + user.email + ")";
+                document.getElementById('userlist').appendChild(p);
+            });
+        }catch(error){
+            console.error("Error:", error);
+        }
+    }
+
+</script>
+</html>
