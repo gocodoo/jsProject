@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container text-center">
+            <h1><i class="fas fa-shopping-bag"></i> FASHION STORE</h1>
+            <p>Discover Your Perfect Style</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-bar">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search products...">
+                    <button class="btn btn-dark" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="row g-4" id="row-card">
+            <div class="spinner-wrapper w-100">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const urlApi = 'https://fakestoreapi.com/products';
+            
+            $.ajax({
+                url: urlApi,
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+                    $('#row-card').empty();
+
+                    let html = '';
+                    response.forEach(item => {
+                        html += `    
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product-card">
+                                <div class="card-img-wrapper">
+                                    <img src="${item.image}" class="card-img-top" alt="${item.title}">
+                                </div>
+                                <div class="card-body">
+                                    <span class="category-badge">${item.category}</span>
+                                    <h5 class="card-title">${item.title}</h5>
+                                    <p class="card-text">${item.description}</p>
+                                    <div class="price-section">
+                                        <span class="price">$${item.price}</span>
+                                        <span class="rating">
+                                            <i class="fas fa-star"></i> ${item.rating.rate} (${item.rating.count})
+                                        </span>
+                                    </div>
+                                    <button class="btn-add-cart">
+                                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    $('#row-card').html(html);
+                },
+                error: function(error) {
+                    console.error('Error fetching products:', error);
+                    $('#row-card').html('<div class="col-12 text-center"><p class="text-danger">Failed to load products. Please try again.</p></div>');
+                }
+            });
+
+            // Search functionality
+            $('#searchInput').on('keyup', function() {
+                let searchTerm = $(this).val().toLowerCase();
+                $('.col-lg-3').each(function() {
+                    let cardText = $(this).text().toLowerCase();
+                    if (cardText.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
