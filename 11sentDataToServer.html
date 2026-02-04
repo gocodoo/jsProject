@@ -3,33 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POST with await</title>
+    <title>GET + POST Example</title>
 </head>
 <body>
+
+    <h2>User List</h2>
     <button onclick="createUser()">Create User</button>
 
+    <ul id="userList"></ul>
+
 <script>
+    const API_URL = 'https://jsonplaceholder.typicode.com/users';
+    let users = []; // 🔹 store all users here
+
+    // 1️⃣ Load old users when page loads
+    window.onload = fetchUsers;
+
+    async function fetchUsers() {
+        const res = await fetch(API_URL);
+        users = await res.json();
+        renderUsers();
+    }
+
+    // 2️⃣ Create new user
     async function createUser() {
-        const url = 'https://jsonplaceholder.typicode.com/users';
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: 'Vanna Sreyne'
+            })
+        });
 
-        try {
-            const res = await fetch(url, {
-                method: 'POST', // ✅ must be a string
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: 'Vanna Sreyne'
-                })
-            });
+        const newUser = await res.json();
 
-            const data = await res.json(); // ✅ use same variable
-            console.log(data);
+        // 🔹 add new user to list
+        users.push(newUser);
 
-        } catch (error) {
-            console.error('Error:', error);
-        }
+        renderUsers();
+    }
+
+    // 3️⃣ Render all users to UI
+    function renderUsers() {
+        const ul = document.getElementById('userList');
+        ul.innerHTML = '';
+
+        users.forEach(user => {
+            ul.innerHTML += `<li>${user.id ?? '-'} - ${user.name}</li>`;
+        });
     }
 </script>
+
 </body>
 </html>
