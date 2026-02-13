@@ -58,7 +58,16 @@
     <script>
         $(document).ready(function() {
             const urlApi = 'https://fakestoreapi.com/products';
-            
+    //         <!-- <button 
+    //     id="btn-add-to-cart"
+    //     class="btn btn-success py-1 rounded-pill px-3"
+    //     data-id="${item.id}"
+    //     data-meal="${item.meal}"
+    //     data-meal-thumb="${item.mealThumb}"
+    //     data-price="${defaulPrice.toFixed(2)}"
+    // >
+    //     Add To Cart +
+    // </button> -->
             $.ajax({
                 url: urlApi,
                 type: 'GET',
@@ -75,8 +84,8 @@
                                     <img src="${item.image}" class="card-img-top" alt="${item.title}">
                                 </div>
                                 <div class="card-body">
-                                    <span class="category-badge">${item.category}</span>
-                                    <h5 class="card-title">${item.title}</h5>
+                                    <span name="category" class="category-badge">${item.category}</span>
+                                    <h5 name="name" class="card-title">${item.title}</h5>
                                     <p class="card-text">${item.description}</p>
                                     <div class="price-section">
                                         <span class="price">${item.price}</span>
@@ -84,7 +93,13 @@
                                             <i class="fas fa-star"></i> ${item.rating.rate} (${item.rating.count})
                                         </span>
                                     </div>
-                                    <button class="btn-add-cart">
+                                    <button class="btn-add-cart"
+                                        data-id="${item.id}"
+                                        data-name="${item.title}"
+                                        data-price="${item.price}"
+                                        data-meal-thumb="${item.image}"
+                                        data-category="${item.category}"
+                                        data-description="${item.description}">
                                         <i class="fas fa-shopping-cart"></i> Add to Cart
                                     </button>
                                 </div>
@@ -101,7 +116,7 @@
 
             // Search functionality
             $('#searchInput').on('keyup', function() {
-                let searchTerm = $(this).val().toLowerCase();
+                let searchTerm = $(this).val().toLowerCase();title
                 $('.col-lg-3').each(function() {
                     let cardText = $(this).text().toLowerCase();
                     if (cardText.includes(searchTerm)) {
@@ -114,9 +129,10 @@
             $(document).on('click', '.btn-add-cart',function(){
                 const item = { 
                     id: $(this).data('id'),
-                    name: $(this).data('title'),
+                    name: $(this).data('name'),
                     thumb: $(this).data('meal-thumb'),
                     price: $(this).data('price'),
+                    description: $(this).data('description'),
                     quantity: 1
                 }
                 console.log("========");
@@ -128,7 +144,7 @@
                 cart.push(item);
 
                 localStorage.setItem('cart', JSON.stringify(cart));
-                alert('Item added to cart');
+                // alert('Item added to cart');
             })
         });
     </script>

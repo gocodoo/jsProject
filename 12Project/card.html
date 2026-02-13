@@ -86,7 +86,7 @@
 
                             <div class="flex-grow-1">
                                 <h6 class="mb-0">${item.name}</h6>
-                                <small class="text-muted">Food</small>
+                                <small class="text-muted">${item.description}</small>
                             </div>
 
                             <input type="number" value="1" class="form-control qty-input me-3 px-0 pe-2" style="width:50px" data-price="${item.price}">
@@ -99,33 +99,6 @@
 
             $('#cart-items').html(html);
             $('#total-price').text(`$${total.toFixed(2)}`);
-
-            $(document).on('click', '#btn-delete', function () {
-
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-                // get checked items
-                let checkedIds = $('.item-check:checked').map(function () {
-                    return $(this).data('id');
-                }).get();
-
-                if (checkedIds.length === 0) {
-                    alert('Please select at least one item!');
-                    return;
-                }
-                
-                // [1, 0 , 0]
-                // remove checked items from cart
-                cart = cart.filter(item => !checkedIds.includes(item.id));
-
-                localStorage.setItem('cart', JSON.stringify(cart));
-
-                // remove from UI
-                $('.item-check:checked').closest('.cart-item').remove();
-
-                updateTotal();
-                $('#check-all').prop('checked', false);
-            });
 
             $(document).on('input', '.qty-input', function () {
 
@@ -143,29 +116,6 @@
 
                 updateTotal();
             });
-
-            function updateTotal() {
-                let total = 0;
-
-                $('.item-total').each(function () {
-                    total += Number($(this).text().replace('$', ''));
-                });
-
-                $('#total-price').text(`$${total.toFixed(2)}`);
-
-                if ($('.item-total').length === 0) {
-                    $('#cart-items').html('<p class="text-center text-muted">Your cart is empty</p>');
-                }
-            }
-
-            $('#check-all').on('change', function () {
-                $('.item-check').prop('checked', this.checked);
-            });
-
-            // localStorage.clear();
-            
-
-            
         });
     </script>
 
