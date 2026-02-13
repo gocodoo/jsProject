@@ -1,0 +1,30 @@
+body {
+    background-color: #f6f6f6;
+}
+.order-card {
+    border-radius: 12px;
+}
+.qty-input {
+    width: 50px;
+    text-align: center;
+}
+.checkout-btn {
+    border-radius: 25px;
+}
+
+
+.text-limit {
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 3; /* number of lines to show */
+           line-clamp: 3; 
+   -webkit-box-orient: vertical;
+}
+
+.text-limit-one {
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 1; /* number of lines to show */
+           line-clamp: 1; 
+   -webkit-box-orient: vertical;
+}

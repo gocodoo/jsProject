@@ -20,6 +20,18 @@
         </div>
     </div>
 
+    <div class="container-fluid p-0">
+        <!-- header -->
+        <nav class="navbar container">
+            <div>
+                <a href="card.html" class="text-success">
+                    CART
+                </a>
+            </div>
+        </nav>
+        <!-- header -->
+    </div>
+
     <div class="container">
         <!-- Search Section -->
         <div class="search-section">
@@ -67,7 +79,7 @@
                                     <h5 class="card-title">${item.title}</h5>
                                     <p class="card-text">${item.description}</p>
                                     <div class="price-section">
-                                        <span class="price">$${item.price}</span>
+                                        <span class="price">${item.price}</span>
                                         <span class="rating">
                                             <i class="fas fa-star"></i> ${item.rating.rate} (${item.rating.count})
                                         </span>
@@ -99,6 +111,25 @@
                     }
                 });
             });
+            $(document).on('click', '.btn-add-cart',function(){
+                const item = { 
+                    id: $(this).data('id'),
+                    name: $(this).data('title'),
+                    thumb: $(this).data('meal-thumb'),
+                    price: $(this).data('price'),
+                    quantity: 1
+                }
+                console.log("========");
+                console.log(item);
+                
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                // [{item}]
+                cart.push(item);
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert('Item added to cart');
+            })
         });
     </script>
 </body>
